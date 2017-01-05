@@ -1,0 +1,19 @@
+Crazy Tanks
+Game Design Document
+---------------------------
+
+- Open world head to head tank combat.
+- Terrain will be used for tactical advantage
+- Main focus: flow and feel
+
+
+Rules
+- Move anywhere in the terrain which is surrounded by mountains
+- Both players start with finite ammo and HP
+- Each direct hit takes away HP
+
+Requirements
+- SFX: gunfire, explosions, barrel moving, turret mobing, engine sound
+- Static meshes: simple tank with tracks, body turret and barrel
+- Textures for visuals
+- Background music
