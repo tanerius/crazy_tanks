@@ -60,3 +60,10 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Visual Studio 2015 database file
+*.VC.db
+*.VC.opendb
+
+**/xcuserdata
+
