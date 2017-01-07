@@ -15,6 +15,7 @@ class DEV_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 public:
+    // Returns the Tank that is being possessed by this player controller.
     ATank* GetControlledTank() const;
 	
 	
