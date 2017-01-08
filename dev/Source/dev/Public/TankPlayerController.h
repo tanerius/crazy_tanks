@@ -20,6 +20,9 @@ private:
     UPROPERTY(EditAnywhere)
     float crosshairYLocation = 0.33333f;
 
+    UPROPERTY(EditAnywhere)
+    float lineTraceRangeCm = 1000000.0f;
+
     // Start moving the tank barrel towards where the crosshair 
     // intersects the world - pretty complex stuff
     void AimTowardsCrosshair();
@@ -31,7 +34,7 @@ private:
     ATank* GetControlledTank() const;
 
     bool GetLookDirection(FVector2D screenLocation, FVector& lookDirection) const;
-
+    bool GetLookVectorHitLocation(FVector lookDirection, FVector& hitLocation) const;
     bool GetSightRayHitLocation(FVector& hl) const;
 
     // override the tick method so we can use it for aiming towards the crosshair
