@@ -15,6 +15,8 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
+    void SetBarrelReference(UStaticMeshComponent* barrelToSet);
+
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
@@ -23,6 +25,8 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-		
+private:
+    // get a reference to the barrel of the tank
+    UStaticMeshComponent* tankBarrel = nullptr;
 	
 };

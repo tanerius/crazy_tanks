@@ -14,6 +14,10 @@ class DEV_API ATank : public APawn
 public:
     void AimAt(FVector hitLocation);
 
+    // Make the following method be callable from blueprint
+    UFUNCTION(BlueprintCallable, Category = Setup)
+    void SetBarrelReference(UStaticMeshComponent* barrelToSet);
+
 protected:
     UTankAimingComponent* tankAimingComponent = nullptr;
 
