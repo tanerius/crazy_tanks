@@ -18,13 +18,14 @@ private:
     // intersects the world - pretty complex stuff
     void AimTowardsCrosshair();
 
+    bool GetSightRayHitLocation(FVector& hl) const;
+
 public:
+    // virtual - allows other children to override
+    virtual void BeginPlay() override;
 
     // Returns the Tank that is being possessed by this player controller.
     ATank* GetControlledTank() const;
-	
-    // virtual - allows other children to override
-    virtual void BeginPlay() override;
 
     // override the tick method so we can use it for aiming towards the crosshair
     // virtual - allows other children to override
