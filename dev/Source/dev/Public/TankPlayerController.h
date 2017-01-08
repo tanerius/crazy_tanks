@@ -18,5 +18,5 @@ public:
     // Returns the Tank that is being possessed by this player controller.
     ATank* GetControlledTank() const;
 	
-	
+    void BeginPlay() override;
 };
