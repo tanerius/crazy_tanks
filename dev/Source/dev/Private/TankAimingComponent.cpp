@@ -31,16 +31,14 @@ void UTankAimingComponent::BeginPlay()
 }
 
 
-void UTankAimingComponent::DoAim(FVector targetLocation)
+void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
 {
-    auto barrelLocation = tankBarrel->GetComponentLocation().ToString();
+    //auto barrelLocation = tankBarrel->GetComponentLocation().ToString();
     UE_LOG(
         LogTemp, 
         Warning, 
-        TEXT("%s aiming at %s from %s"), 
-        *GetOwner()->GetName(), 
-        *targetLocation.ToString(), 
-        *barrelLocation
+        TEXT("Firing at: %f"), 
+        launchSpeed
     );
 }
 
