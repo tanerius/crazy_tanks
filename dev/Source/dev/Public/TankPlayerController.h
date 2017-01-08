@@ -30,6 +30,8 @@ private:
     // Returns the Tank that is being possessed by this player controller.
     ATank* GetControlledTank() const;
 
+    bool GetLookDirection(FVector2D screenLocation, FVector& lookDirection) const;
+
     bool GetSightRayHitLocation(FVector& hl) const;
 
     // override the tick method so we can use it for aiming towards the crosshair

@@ -11,7 +11,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 
     FVector hitLocation; // Out parameter
     if (GetSightRayHitLocation(hitLocation)) {
-        UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *hitLocation.ToString());
+        // UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *hitLocation.ToString());
 
         // Tell controlled tank to aim crosshair
     }
@@ -23,7 +23,6 @@ void ATankPlayerController::AimTowardsCrosshair()
 void ATankPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    UE_LOG(LogTemp, Warning, TEXT("PleyerController BeginPlay()"));
 
     ATank* possesedTank = GetControlledTank();
     if (!possesedTank)
@@ -35,6 +34,13 @@ void ATankPlayerController::BeginPlay()
 ATank* ATankPlayerController::GetControlledTank() const
 {
     return Cast<ATank>(GetPawn());
+}
+
+
+bool ATankPlayerController::GetLookDirection(FVector2D screenLocation, FVector& lookDirection) const
+{
+    FVector cameraWorldLocation; // Discard this
+    return DeprojectScreenPositionToWorld(screenLocation.X, screenLocation.Y, cameraWorldLocation, lookDirection);
 }
 
 // If it hits landscape return true
@@ -49,6 +55,12 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& hl) const
     // UE_LOG(LogTemp, Warning, TEXT("CrossHair screen location: %s"), *screenLocation.ToString());
 
     // De-project screen position of the hrosshair to a world direction
+    FVector lookDirection;
+    if ( GetLookDirection(screenLocation, lookDirection) )
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *lookDirection.ToString());
+    }
+
     // Line trace along that look direction and see what we hit (up to max range)
 
 
