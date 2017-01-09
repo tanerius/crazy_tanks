@@ -6,6 +6,8 @@
 #include "TankAimingComponent.generated.h"
 
 
+class UTankBarrel; // Do a class forward declaration
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEV_API UTankAimingComponent : public UActorComponent
 {
@@ -15,7 +17,7 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-    void SetBarrelReference(UStaticMeshComponent* barrelToSet);
+    void SetBarrelReference(UTankBarrel* barrelToSet);
 
     // TODO: Add SetTurretReference
 
@@ -23,7 +25,7 @@ public:
 
 private:
     // get a reference to the barrel of the tank
-    UStaticMeshComponent* tankBarrel = nullptr;
+    UTankBarrel* tankBarrel = nullptr;
     void MoveBarrelTowards(FVector aimDirection);
 	
 };

@@ -20,7 +20,6 @@ void ATankAIController::AimTowardsPlayer()
 void ATankAIController::BeginPlay()
 {
     Super::BeginPlay();
-    UE_LOG(LogTemp, Warning, TEXT("ATankAIController BeginPlay()"));
 
     ATank* possesedTank = GetControlledTank();
     if (!possesedTank)

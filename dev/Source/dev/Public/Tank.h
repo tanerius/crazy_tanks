@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" // Put new includes above
 
+class UTankBarrel; // Do a class forward declaration
+
 UCLASS()
 class DEV_API ATank : public APawn
 {
@@ -16,7 +18,7 @@ public:
 
     // Make the following method be callable from blueprint
     UFUNCTION(BlueprintCallable, Category = Setup)
-    void SetBarrelReference(UStaticMeshComponent* barrelToSet);
+    void SetBarrelReference(UTankBarrel* barrelToSet);
 
 protected:
     UTankAimingComponent* tankAimingComponent = nullptr;
