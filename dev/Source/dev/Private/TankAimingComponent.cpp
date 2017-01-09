@@ -10,7 +10,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -45,6 +45,13 @@ void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
         // turn launch velocity vector into a unit vector
         auto aimDirection = outLaunchVelocity.GetSafeNormal();
         MoveBarrelTowards(aimDirection);
+        auto timeNow = GetWorld()->GetTimeSeconds();
+        UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found at %s"), timeNow, *aimDirection.ToString());
+    }
+    else
+    {
+        auto timeNow = GetWorld()->GetTimeSeconds();
+        UE_LOG(LogTemp, Warning, TEXT("%f: No solution for aiming"), timeNow);
     }
    
     
