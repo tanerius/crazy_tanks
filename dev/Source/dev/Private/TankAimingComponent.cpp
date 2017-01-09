@@ -2,6 +2,7 @@
 
 #include "dev.h"
 #include "TankBarrel.h"
+#include "Turret.h"
 #include "TankAimingComponent.h"
 
 
@@ -18,12 +19,20 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* barrelToSet)
 {
+    if (!barrelToSet) { return; }
     tankBarrel = barrelToSet;
+}
+
+void UTankAimingComponent::SetTurretReference(UTurret* turretToSet)
+{
+    if (!turretToSet) { return; }
+    tankTurret = turretToSet;
 }
 
 void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
 {
     if (!tankBarrel) { return; }
+    if (!tankTurret) { return; }
 
     FVector outLaunchVelocity; // an out parameter 
     FVector startLocation = tankBarrel->GetSocketLocation(FName("Projectile")); // already created a Projectile socket
@@ -48,14 +57,12 @@ void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
         // turn launch velocity vector into a unit vector
         auto aimDirection = outLaunchVelocity.GetSafeNormal();
         MoveBarrelTowards(aimDirection);
-        auto timeNow = GetWorld()->GetTimeSeconds();
-        UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found at %s"), timeNow, *aimDirection.ToString());
     }
-    else
-    {
-        auto timeNow = GetWorld()->GetTimeSeconds();
-        UE_LOG(LogTemp, Warning, TEXT("%f: No solution for aiming"), timeNow);
-    }
+    //else
+    //{
+    //    auto timeNow = GetWorld()->GetTimeSeconds();
+    //    UE_LOG(LogTemp, Warning, TEXT("%f: No solution for aiming"), timeNow);
+    //}
    
     
 }
@@ -68,7 +75,10 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
     auto aimAsRotator = aimDirection.Rotation();
     auto deltaRotator = aimAsRotator - barrelRotator;
     
-    tankBarrel->Elevate(deltaRotator.Pitch); // TODO remove magic number
+    // pitch the barrel
+    tankBarrel->Elevate(deltaRotator.Pitch);
 
+    // rotate the turret too
+    tankTurret->RotateTurret(deltaRotator.Yaw);
 }
 

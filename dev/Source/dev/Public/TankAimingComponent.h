@@ -8,6 +8,7 @@
 // Do a class forward declaration
 
 class UTankBarrel; 
+class UTurret;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEV_API UTankAimingComponent : public UActorComponent
@@ -19,6 +20,7 @@ public:
 	UTankAimingComponent();
 
     void SetBarrelReference(UTankBarrel* barrelToSet);
+    void SetTurretReference(UTurret* turretToSet);
 
     // TODO: Add SetTurretReference
 
@@ -27,6 +29,9 @@ public:
 private:
     // get a reference to the barrel of the tank
     UTankBarrel* tankBarrel = nullptr;
+    // get a reference to the turret
+    UTurret* tankTurret = nullptr;
+
     void MoveBarrelTowards(FVector aimDirection);
 	
 };
