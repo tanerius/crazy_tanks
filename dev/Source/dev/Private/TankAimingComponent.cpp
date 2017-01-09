@@ -20,17 +20,6 @@ void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* barrelToSet)
     tankBarrel = barrelToSet;
 }
 
-
-// Called when the game starts
-void UTankAimingComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
 void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
 {
     if (!tankBarrel) { return; }
@@ -48,37 +37,29 @@ void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
             startLocation,
             targetLocation,
             launchSpeed,
-            false, // whether to favour high arc (true) or go with low arc (false)
-            0.0f, // CollisionRadius in cm i guess
-            0.0f // OverrideGravityZ
-            //ESuggestProjVelocityTraceOption::Type::DoNotTrace, // trace option
-            //responseParam, // collision response param
-            //actorsToIgnore,
-            //false // draw debug
+            ESuggestProjVelocityTraceOption::Type::DoNotTrace // trace option
         )
     )
     {
         // turn launch velocity vector into a unit vector
         auto aimDirection = outLaunchVelocity.GetSafeNormal();
-        auto tankName = GetOwner()->GetName();
-        UE_LOG(
-            LogTemp,
-            Warning,
-            TEXT("%s aiming at: %s"),
-            *tankName,
-            *aimDirection.ToString()
-            );
+        MoveBarrelTowards(aimDirection);
     }
    
     
 }
 
 
-// Called every frame
-void UTankAimingComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
+void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
-	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
+    // work out difference between currect barrel rotation and aim direction
+    auto barrelRotator = tankBarrel->GetForwardVector().Rotation();
+    auto aimAsRotator = aimDirection.Rotation();
+    auto deltaRotator = aimAsRotator - barrelRotator;
+    UE_LOG(LogTemp, Warning, TEXT("AimAsRotator: %s"), *aimAsRotator.ToString());
 
-	// ...
+    // move the barrel the right amount this frame
+    // given max elevation speed, and the frame time
+
 }
 
