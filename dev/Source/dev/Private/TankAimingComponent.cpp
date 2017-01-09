@@ -33,13 +33,44 @@ void UTankAimingComponent::BeginPlay()
 
 void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
 {
-    //auto barrelLocation = tankBarrel->GetComponentLocation().ToString();
-    UE_LOG(
-        LogTemp, 
-        Warning, 
-        TEXT("Firing at: %f"), 
-        launchSpeed
-    );
+    if (!tankBarrel) { return; }
+
+    FVector outLaunchVelocity; // an out parameter 
+    FVector startLocation = tankBarrel->GetSocketLocation(FName("Projectile")); // already created a Projectile socket
+    FCollisionResponseParams responseParam;
+    TArray < AActor * > actorsToIgnore;
+    // calculate the out launch velocity
+    if (
+        UGameplayStatics::SuggestProjectileVelocity
+        (
+            this, // world context object
+            outLaunchVelocity,
+            startLocation,
+            targetLocation,
+            launchSpeed,
+            false, // whether to favour high arc (true) or go with low arc (false)
+            0.0f, // CollisionRadius in cm i guess
+            0.0f // OverrideGravityZ
+            //ESuggestProjVelocityTraceOption::Type::DoNotTrace, // trace option
+            //responseParam, // collision response param
+            //actorsToIgnore,
+            //false // draw debug
+        )
+    )
+    {
+        // turn launch velocity vector into a unit vector
+        auto aimDirection = outLaunchVelocity.GetSafeNormal();
+        auto tankName = GetOwner()->GetName();
+        UE_LOG(
+            LogTemp,
+            Warning,
+            TEXT("%s aiming at: %s"),
+            *tankName,
+            *aimDirection.ToString()
+            );
+    }
+   
+    
 }
 
 
