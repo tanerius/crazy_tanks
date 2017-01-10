@@ -13,12 +13,12 @@ void UTurret::RotateTurret(float newRelativeYaw)
     // multiply by GetWorld()->DeltaTimeSeconds to correct frame rate differences
     auto yawChange = relativeSpeedClamped * maxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
     // calculate new elevation without claming to max and min
-    auto rawNewYaw = RelativeRotation.Yaw + yawChange;
+    auto rawYaw = RelativeRotation.Yaw + yawChange;
 
-    auto timeNow = GetWorld()->GetTimeSeconds();
-    UE_LOG(LogTemp, Warning, TEXT("%f: Relative Yaw %f "), timeNow, newRelativeYaw);
+    //auto timeNow = GetWorld()->GetTimeSeconds();
+    //UE_LOG(LogTemp, Warning, TEXT("%f: Relative Yaw %f "), timeNow, newRelativeYaw);
     
-    SetRelativeRotation(FRotator(0.0f, rawNewYaw, 0.0f));
+    SetRelativeRotation(FRotator(0.0f, rawYaw, 0.0f));
     
     return;
 }
