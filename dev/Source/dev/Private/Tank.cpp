@@ -15,6 +15,13 @@ ATank::ATank()
 
 }
 
+void ATank::FireCannon()
+{
+    auto timeNow = GetWorld()->GetTimeSeconds();
+    UE_LOG(LogTemp, Warning, TEXT("%f: Firing the cannon!!! "), timeNow);
+    return;
+}
+
 void ATank::SetBarrelReference(UTankBarrel* barrelToSet)
 {
     tankAimingComponent->SetBarrelReference(barrelToSet);
