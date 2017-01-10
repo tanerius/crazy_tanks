@@ -9,6 +9,7 @@
 class UTankBarrel; // Do a class forward declaration
 class UTurret;
 class UTankAimingComponent;
+class AProjectile;
 
 UCLASS()
 class DEV_API ATank : public APawn
@@ -41,4 +42,8 @@ private:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+    UPROPERTY(EditAnywhere, Category = "Setup")
+    TSubclassOf<AProjectile> projectileBlueprint;
+
+    UTankBarrel* barrel = nullptr;
 };

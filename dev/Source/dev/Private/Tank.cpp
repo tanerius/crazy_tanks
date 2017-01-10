@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "dev.h"
+#include "TankBarrel.h"
+#include "Projectile.h"
 #include "TankAimingComponent.h"
 #include "Tank.h"
 
@@ -12,19 +14,31 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
     tankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+    
 
 }
 
 void ATank::FireCannon()
 {
-    auto timeNow = GetWorld()->GetTimeSeconds();
-    UE_LOG(LogTemp, Warning, TEXT("%f: Firing the cannon!!! "), timeNow);
+    if (!barrel) { return; }
+
+    // Spawn a projectile
+    
+    auto projectile = GetWorld()->SpawnActor<AProjectile>(
+        projectileBlueprint,
+        barrel->GetSocketLocation(FName("Projectile")),
+        barrel->GetSocketRotation(FName("Projectile"))
+        );
+
+    projectile->LaunchProjectile(launchSpeed);
+     
     return;
 }
 
 void ATank::SetBarrelReference(UTankBarrel* barrelToSet)
 {
     tankAimingComponent->SetBarrelReference(barrelToSet);
+    barrel = barrelToSet;
 }
 
 void ATank::SetTurretReference(UTurret* turretToSet)
