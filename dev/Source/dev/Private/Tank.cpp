@@ -20,17 +20,19 @@ ATank::ATank()
 
 void ATank::FireCannon()
 {
-    if (!barrel) { return; }
+    bool isReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
 
-    // Spawn a projectile
-    
-    auto projectile = GetWorld()->SpawnActor<AProjectile>(
-        projectileBlueprint,
-        barrel->GetSocketLocation(FName("Projectile")),
-        barrel->GetSocketRotation(FName("Projectile"))
-        );
+    if (barrel && isReloaded) {
+        // Spawn a projectile
+        auto projectile = GetWorld()->SpawnActor<AProjectile>(
+            projectileBlueprint,
+            barrel->GetSocketLocation(FName("Projectile")),
+            barrel->GetSocketRotation(FName("Projectile"))
+            );
 
-    projectile->LaunchProjectile(launchSpeed);
+        projectile->LaunchProjectile(launchSpeed);
+        lastFireTime = FPlatformTime::Seconds();
+    }
      
     return;
 }
