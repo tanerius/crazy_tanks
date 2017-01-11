@@ -20,13 +20,13 @@ public:
     void AimAt(FVector hitLocation);
 
     // Make the following method be callable from blueprint
-    UFUNCTION(BlueprintCallable, Category = Setup)
+    UFUNCTION(BlueprintCallable, Category = "Setup")
     void SetBarrelReference(UTankBarrel* barrelToSet);
 
-    UFUNCTION(BlueprintCallable, Category = Setup)
+    UFUNCTION(BlueprintCallable, Category = "Setup")
     void SetTurretReference(UTurret* turretToSet);
 
-    UFUNCTION(BlueprintCallable, Category = Setup)
+    UFUNCTION(BlueprintCallable, Category = "Setup")
     void FireCannon();
 
 protected:
@@ -42,10 +42,12 @@ private:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-    UPROPERTY(EditAnywhere, Category = "Setup")
+    UPROPERTY(EditDefaultsOnly, Category = "Setup")
     TSubclassOf<AProjectile> projectileBlueprint;
 
     UTankBarrel* barrel = nullptr;
+    
+    UPROPERTY(EditDefaultsOnly, Category = "Firing")
     float reloadTimeInSeconds = 3.0f; // sensible default
     double lastFireTime = 0;
 };
