@@ -75,36 +75,24 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
     auto barrelRotator = tankBarrel->GetForwardVector().Rotation(); // current state
     auto aimAsRotator = aimDirection.Rotation(); // where to aim
     
-    float targetYaw = 0;
-    float currentYaw = 0;
+    float targetYaw = NormalizeAngle(aimAsRotator.Yaw);
+    float currentYaw = NormalizeAngle(barrelRotator.Yaw);
 
-    
     auto deltaRotator = aimAsRotator - barrelRotator; // angle difference
     
-    tankBarrel->Elevate(deltaRotator.Pitch);
-    
-    // Normalization of Yaw angles to human readable
-    if(aimAsRotator.Yaw < 0 ){
-        targetYaw = (180 + (180 + aimAsRotator.Yaw));
-    }
-    else{
-        targetYaw = aimAsRotator.Yaw;
-    }
-    
-    if(barrelRotator.Yaw < 0){
-        currentYaw = 180 + (180 + barrelRotator.Yaw);
-    }
-    else{
-        currentYaw = barrelRotator.Yaw;
-    }
+   
     
     float rawDifference = FMath::Abs(currentYaw-targetYaw);
-    
-    if(rawDifference > 180)
+    // Elevate the tank barrel as much as needed
+    tankBarrel->Elevate(deltaRotator.Pitch);
+
+    // Adjust the turret yaw correctly by moving towards the shortest path to target yaw
+    // Thanx: Jovica K. and Nikola K. for the help
+    if( rawDifference > 180 )
     {
-        if(currentYaw>targetYaw)
+        if( currentYaw>targetYaw )
         {
-            tankTurret->RotateTurret(rawDifference);
+            tankTurret->RotateTurret( rawDifference );
         }
         else
         {
@@ -123,15 +111,23 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
         }
     }
     
-
     /*
     auto ownerTank = Cast<ATank>(GetOwner());
     if(ownerTank->isHuman)
         UE_LOG(LogTemp, Warning, TEXT("current %f ; currentN:  %f ; to: %f ; toN : %f"), barrelRotator.Yaw, currentYaw, aimAsRotator.Yaw, targetYaw );
     */
-    
-    // rotate the turret too
-    
+}
 
+float UTankAimingComponent::NormalizeAngle(float unrealAngle)
+{
+    float normalAngle = 0;
+
+    if (unrealAngle < 0) {
+        normalAngle = 360 + unrealAngle;
+    }
+    else {
+        normalAngle = unrealAngle;
+    }
+    return normalAngle;
 }
 

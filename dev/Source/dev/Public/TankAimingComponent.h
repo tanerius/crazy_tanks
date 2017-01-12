@@ -29,5 +29,6 @@ private:
     UTurret* tankTurret = nullptr;
 
     void MoveBarrelTowards(FVector aimDirection);
+    float NormalizeAngle(float unrealAngle); // returns an angle from 0 - 360 degrees given an unreal engine angle
 	
 };

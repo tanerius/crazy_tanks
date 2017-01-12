@@ -23,7 +23,7 @@ void ATankAIController::Tick(float DeltaSeconds)
     if (playerTank && aiPlayer)
     {
         aiPlayer->AimAt(playerTank->GetActorLocation());
-        // aiPlayer->FireCannon(); // TODO: Don't fire every frame
+        aiPlayer->FireCannon(); 
     }
     
     return;

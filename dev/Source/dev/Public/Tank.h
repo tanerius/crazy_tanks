@@ -44,7 +44,7 @@ private:
     // EditDefaultsOnly - can only change value inside Blueprint fo all instances
     // EditAnywhere - can chenge value for a particular instance
     UPROPERTY(EditDefaultsOnly, Category = Firing)
-    float launchSpeed = 4000.0f; // 1000 metres per second.
+    float launchSpeed = 4000.0f; // 1000 cm per second.
     
     UPROPERTY(EditDefaultsOnly, Category = "Setup")
     TSubclassOf<AProjectile> projectileBlueprint;
