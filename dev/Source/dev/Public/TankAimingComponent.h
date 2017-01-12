@@ -18,13 +18,9 @@ class DEV_API UTankAimingComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
-
+    void DoAim(FVector targetLocation, float launchSpeed);
     void SetBarrelReference(UTankBarrel* barrelToSet);
     void SetTurretReference(UTurret* turretToSet);
-
-    // TODO: Add SetTurretReference
-
-    void DoAim(FVector targetLocation, float launchSpeed);
 
 private:
     // get a reference to the barrel of the tank

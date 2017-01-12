@@ -15,6 +15,7 @@ class DEV_API UTurret : public UStaticMeshComponent
 
 public:
     void RotateTurret(float newAngle);
+    int32 WhichQuadrant(float angle);
 
 private:
     UPROPERTY(EditAnywhere, Category = Setup)

@@ -8,14 +8,16 @@
 
 class ATank;
 
-/**
- * 
- */
+
 UCLASS()
 class DEV_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 private:
+    /////////////////////////////////
+    // PROPERTIES
+    /////////////////////////////////
+
     UPROPERTY(EditAnywhere)
     float crosshairXLocation = 0.5f;
 
@@ -24,6 +26,11 @@ private:
 
     UPROPERTY(EditAnywhere)
     float lineTraceRangeCm = 1000000.0f;
+
+    
+    /////////////////////////////////
+    // MEMBERS
+    /////////////////////////////////
 
     // Start moving the tank barrel towards where the crosshair 
     // intersects the world - pretty complex stuff

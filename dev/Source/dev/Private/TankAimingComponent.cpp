@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "dev.h"
+#include "Tank.h"
 #include "TankBarrel.h"
 #include "Turret.h"
 #include "TankAimingComponent.h"
@@ -71,14 +72,66 @@ void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
     // work out difference between currect barrel rotation and aim direction
-    auto barrelRotator = tankBarrel->GetForwardVector().Rotation();
-    auto aimAsRotator = aimDirection.Rotation();
-    auto deltaRotator = aimAsRotator - barrelRotator;
+    auto barrelRotator = tankBarrel->GetForwardVector().Rotation(); // current state
+    auto aimAsRotator = aimDirection.Rotation(); // where to aim
     
-    // pitch the barrel
-    tankBarrel->Elevate(deltaRotator.Pitch);
+    float targetYaw = 0;
+    float currentYaw = 0;
 
+    
+    auto deltaRotator = aimAsRotator - barrelRotator; // angle difference
+    
+    tankBarrel->Elevate(deltaRotator.Pitch);
+    
+    // Normalization of Yaw angles to human readable
+    if(aimAsRotator.Yaw < 0 ){
+        targetYaw = (180 + (180 + aimAsRotator.Yaw));
+    }
+    else{
+        targetYaw = aimAsRotator.Yaw;
+    }
+    
+    if(barrelRotator.Yaw < 0){
+        currentYaw = 180 + (180 + barrelRotator.Yaw);
+    }
+    else{
+        currentYaw = barrelRotator.Yaw;
+    }
+    
+    float rawDifference = FMath::Abs(currentYaw-targetYaw);
+    
+    if(rawDifference > 180)
+    {
+        if(currentYaw>targetYaw)
+        {
+            tankTurret->RotateTurret(rawDifference);
+        }
+        else
+        {
+            tankTurret->RotateTurret(-rawDifference);
+        }
+    }
+    else
+    {
+        if(currentYaw>targetYaw)
+        {
+            tankTurret->RotateTurret(-rawDifference);
+        }
+        else
+        {
+            tankTurret->RotateTurret(rawDifference);
+        }
+    }
+    
+
+    /*
+    auto ownerTank = Cast<ATank>(GetOwner());
+    if(ownerTank->isHuman)
+        UE_LOG(LogTemp, Warning, TEXT("current %f ; currentN:  %f ; to: %f ; toN : %f"), barrelRotator.Yaw, currentYaw, aimAsRotator.Yaw, targetYaw );
+    */
+    
     // rotate the turret too
-    tankTurret->RotateTurret(deltaRotator.Yaw);
+    
+
 }
 

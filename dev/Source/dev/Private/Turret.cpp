@@ -23,3 +23,19 @@ void UTurret::RotateTurret(float newRelativeYaw)
     return;
 }
 
+int32 UTurret::WhichQuadrant(float angle)
+{
+    if(angle >0 && angle <=90)
+    {
+        return 1;
+    }
+    if(angle >90 && angle <=180)
+    {
+        return 2;
+    }
+    if(angle >180 && angle <=270)
+    {
+        return 3;
+    }
+    return 4;
+}

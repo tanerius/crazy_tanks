@@ -9,6 +9,8 @@
 void ATankAIController::BeginPlay()
 {
     Super::BeginPlay();
+    ATank* aiPlayer = Cast<ATank>(GetPawn());
+    aiPlayer->isHuman = false;
 }
 
 void ATankAIController::Tick(float DeltaSeconds)
@@ -21,7 +23,7 @@ void ATankAIController::Tick(float DeltaSeconds)
     if (playerTank && aiPlayer)
     {
         aiPlayer->AimAt(playerTank->GetActorLocation());
-        aiPlayer->FireCannon(); // TODO: Don't fire every frame
+        // aiPlayer->FireCannon(); // TODO: Don't fire every frame
     }
     
     return;
