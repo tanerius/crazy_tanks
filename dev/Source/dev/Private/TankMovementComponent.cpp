@@ -29,6 +29,14 @@ void UTankMovementComponent::IntendTurnLeftRight(float moveThrow)
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
     // No need to call super. Need to completely replace funcitonality of parent
-    auto tankName = GetOwner()->GetName();
-    UE_LOG(LogTemp, Warning, TEXT("%s: Vectoring to %s "), *tankName, *MoveVelocity.ToString());
+    // Note: MoveVelocity is NOT a unit vector, but we're only interested in the direction
+    auto tankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+    auto aiForwardIntention = MoveVelocity.GetSafeNormal(); // where AI pathfinding would like to orient and move the tank
+
+    // calculate the dot product
+    // A*B = ||A|| ||B|| cos(angle)
+    float moveThrow = FVector::DotProduct(tankForward, aiForwardIntention);
+    IntendMoveForward(moveThrow);
+
+    //UE_LOG(LogTemp, Warning, TEXT("%s: Vectoring to %s "), *tankName, *moveDirectionNormal.ToString());
 }
