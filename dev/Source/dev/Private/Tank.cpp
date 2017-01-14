@@ -4,6 +4,7 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "TankAimingComponent.h"
+#include "TankMovementComponent.h"
 #include "Tank.h"
 
 
@@ -14,14 +15,13 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
     tankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
-    
 
 }
 
 void ATank::FireCannon()
 {
     bool isReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
-
+    return;
     if (barrel && isReloaded) {
         // Spawn a projectile
         auto projectile = GetWorld()->SpawnActor<AProjectile>(

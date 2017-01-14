@@ -9,6 +9,7 @@
 class UTankBarrel; // Do a class forward declaration
 class UTurret;
 class UTankAimingComponent;
+class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -32,6 +33,9 @@ public:
 
 protected:
     UTankAimingComponent* tankAimingComponent = nullptr;
+
+    UPROPERTY(BlueprintReadOnly)
+    UTankMovementComponent* tankMovementComponent = nullptr;
 
 private:
     /////////////////////////////////
