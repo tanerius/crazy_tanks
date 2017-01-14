@@ -35,8 +35,13 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
     // calculate the dot product
     // A*B = ||A|| ||B|| cos(angle)
-    float moveThrow = FVector::DotProduct(tankForward, aiForwardIntention);
-    IntendMoveForward(moveThrow);
+    float forwardThrow = FVector::DotProduct(tankForward, aiForwardIntention);
+    float rightThrow = FVector::CrossProduct(aiForwardIntention, tankForward).Z;
+    IntendMoveForward(forwardThrow);
+    IntendTurnLeftRight(rightThrow);
+
+    
+
 
     //UE_LOG(LogTemp, Warning, TEXT("%s: Vectoring to %s "), *tankName, *moveDirectionNormal.ToString());
 }
