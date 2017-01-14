@@ -33,5 +33,7 @@ public:
     void IntendMoveForward(float moveThrow);
     UFUNCTION(BlueprintCallable, Category = "Input")
     void IntendTurnLeftRight(float moveThrow);
+
+    virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 	
 };

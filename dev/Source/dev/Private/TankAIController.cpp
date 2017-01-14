@@ -22,6 +22,9 @@ void ATankAIController::Tick(float DeltaSeconds)
 
     if (playerTank && aiPlayer)
     {
+        // Move towards player
+        MoveToActor(playerTank, acceptanceRadius);
+
         aiPlayer->AimAt(playerTank->GetActorLocation());
         aiPlayer->FireCannon(); 
     }
