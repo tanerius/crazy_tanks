@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "dev.h"
 #include "TankTrack.h"
 #include "TankMovementComponent.h"
@@ -37,11 +35,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
     // A*B = ||A|| ||B|| cos(angle)
     float forwardThrow = FVector::DotProduct(tankForward, aiForwardIntention);
     float rightThrow = FVector::CrossProduct(aiForwardIntention, tankForward).Z;
+
     IntendMoveForward(forwardThrow);
     IntendTurnLeftRight(rightThrow);
-
-    
-
-
-    //UE_LOG(LogTemp, Warning, TEXT("%s: Vectoring to %s "), *tankName, *moveDirectionNormal.ToString());
 }

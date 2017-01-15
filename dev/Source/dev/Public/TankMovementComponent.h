@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "GameFramework/NavMovementComponent.h"
@@ -24,6 +22,8 @@ private:
     float maxSpeed = 1300.0f;
     UPROPERTY(EditDefaultsOnly)
     float minSpeed = -1000.0f;
+    // Call by the pathfinding logic by the AI controllers
+    virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Setup")
@@ -33,7 +33,4 @@ public:
     void IntendMoveForward(float moveThrow);
     UFUNCTION(BlueprintCallable, Category = "Input")
     void IntendTurnLeftRight(float moveThrow);
-
-    virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
-	
 };
