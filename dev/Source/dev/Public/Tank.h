@@ -32,6 +32,7 @@ public:
     void SetTurretReference(UTurret* turretToSet);
 
 protected:
+    UPROPERTY(BlueprintReadOnly)
     UTankAimingComponent* tankAimingComponent = nullptr;
 
     UPROPERTY(BlueprintReadOnly)

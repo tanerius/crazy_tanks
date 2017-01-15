@@ -13,6 +13,7 @@ UCLASS()
 class DEV_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
 private:
     /////////////////////////////////
     // PROPERTIES
@@ -39,9 +40,6 @@ private:
     // virtual - allows other children to override
     virtual void BeginPlay() override;
 
-    // Returns the Tank that is being possessed by this player controller.
-    ATank* GetControlledTank() const;
-
     bool GetLookDirection(FVector2D screenLocation, FVector& lookDirection) const;
     bool GetLookVectorHitLocation(FVector lookDirection, FVector& hitLocation) const;
     bool GetSightRayHitLocation(FVector& hl) const;
@@ -49,4 +47,9 @@ private:
     // override the tick method so we can use it for aiming towards the crosshair
     // virtual - allows other children to override
     virtual void Tick( float DeltaSeconds ) override;
+
+protected:
+    // Returns the Tank that is being possessed by this player controller.
+    UFUNCTION(BlueprintCallable, Category = "Setup")
+    ATank* GetControlledTank() const;
 };
