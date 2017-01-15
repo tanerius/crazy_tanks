@@ -14,7 +14,7 @@ class DEV_API UTankTrack : public UStaticMeshComponent
 	GENERATED_BODY()
 	
 public:
-    UFUNCTION(BlueprintCallable, Category = Input)
+    UFUNCTION(BlueprintCallable, Category = "Input")
     void SetThrottle(float throttle);
 	
     // max force per track in newtons (400K Newtons)

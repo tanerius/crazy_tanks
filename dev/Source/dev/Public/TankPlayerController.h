@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Taner Selim
 
 #pragma once
 
@@ -7,8 +7,11 @@
 
 
 class ATank;
+class UTankAimingComponent;
 
-
+/**
+* Responsible for helping the player to aim
+*/
 UCLASS()
 class DEV_API ATankPlayerController : public APlayerController
 {
@@ -52,4 +55,7 @@ protected:
     // Returns the Tank that is being possessed by this player controller.
     UFUNCTION(BlueprintCallable, Category = "Setup")
     ATank* GetControlledTank() const;
+
+    UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+    void FoundAimingComponent(UTankAimingComponent* aimingCompRef);
 };

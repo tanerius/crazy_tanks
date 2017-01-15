@@ -17,23 +17,21 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* barrelToSet)
+void UTankAimingComponent::Initialize(UTurret* turretToSet, UTankBarrel* barrelToSet)
 {
-    if (!barrelToSet) { return; }
+    if (!ensure(barrelToSet && turretToSet))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Cant set turret and barrel"));
+        return; 
+    }
+    
     tankBarrel = barrelToSet;
-}
-
-void UTankAimingComponent::SetTurretReference(UTurret* turretToSet)
-{
-    if (!turretToSet) { return; }
     tankTurret = turretToSet;
 }
 
 void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
 {
-    if (!tankBarrel) { return; }
-    if (!tankTurret) { return; }
+    if (!ensure(tankBarrel && tankTurret)) { return; }
 
     FVector outLaunchVelocity; // an out parameter 
     FVector startLocation = tankBarrel->GetSocketLocation(FName("Projectile")); // already created a Projectile socket
@@ -71,6 +69,7 @@ void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
+    if (!ensure(tankBarrel && tankTurret)) { return; }
     // work out difference between currect barrel rotation and aim direction
     auto barrelRotator = tankBarrel->GetForwardVector().Rotation(); // current state
     auto aimAsRotator = aimDirection.Rotation(); // where to aim

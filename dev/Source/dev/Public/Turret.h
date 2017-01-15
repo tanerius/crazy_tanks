@@ -17,7 +17,7 @@ public:
     void RotateTurret(float newAngle);
 
 private:
-    UPROPERTY(EditAnywhere, Category = Setup)
+    UPROPERTY(EditAnywhere, Category = "Setup")
     float maxDegreesPerSecond = 25.0f; // Sensible property
 	
 	

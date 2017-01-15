@@ -4,7 +4,6 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "Tank.h"
 
 
@@ -13,16 +12,14 @@ ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
-    tankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
-
 }
 
 void ATank::FireCannon()
 {
+    if (!ensure(barrel)) { return; }
     bool isReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
-    return;
-    if (barrel && isReloaded) {
+    return; // TODO: REMOVE THIS TO ENABLE TANKS TO FIRE
+    if (isReloaded) {
         // Spawn a projectile
         auto projectile = GetWorld()->SpawnActor<AProjectile>(
             projectileBlueprint,
@@ -37,26 +34,18 @@ void ATank::FireCannon()
     return;
 }
 
-void ATank::SetBarrelReference(UTankBarrel* barrelToSet)
-{
-    tankAimingComponent->SetBarrelReference(barrelToSet);
-    barrel = barrelToSet;
-}
-
-void ATank::SetTurretReference(UTurret* turretToSet)
-{
-    tankAimingComponent->SetTurretReference(turretToSet);
-}
-
 void ATank::AimAt(FVector hitLocation)
 {
+    if (!ensure(tankAimingComponent))
+    {
+        return;
+    }
+
     tankAimingComponent->DoAim(hitLocation, launchSpeed);
     return;
 }
 
-// Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
-	Super::BeginPlay();
-	
+    Super::BeginPlay(); // Needed for the BP BeginPlay event to be fired!
 }

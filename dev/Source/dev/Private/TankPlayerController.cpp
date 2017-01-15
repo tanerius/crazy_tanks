@@ -2,12 +2,13 @@
 
 #include "dev.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 #include "TankPlayerController.h"
 
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-    if (!GetControlledTank())
+    if ( !ensure(GetControlledTank()) )
         return;
 
     FVector hitLocation; // Out parameter
@@ -24,12 +25,14 @@ void ATankPlayerController::AimTowardsCrosshair()
 void ATankPlayerController::BeginPlay()
 {
     Super::BeginPlay();
+    auto aimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+    if (ensure(aimingComponent))
+    {
+        FoundAimingComponent(aimingComponent);
+    }
 
     ATank* possesedTank = GetControlledTank();
-    if (!possesedTank)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Not possesing a tank!"));
-    }
+    ensure(possesedTank);
 }
 
 ATank* ATankPlayerController::GetControlledTank() const

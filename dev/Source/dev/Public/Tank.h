@@ -7,7 +7,6 @@
 #include "Tank.generated.h" // Put new includes above
 
 class UTankBarrel; // Do a class forward declaration
-class UTurret;
 class UTankAimingComponent;
 class UTankMovementComponent;
 class AProjectile;
@@ -25,12 +24,8 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Setup")
     void FireCannon();
     
-    UFUNCTION(BlueprintCallable, Category = "Setup")
-    void SetBarrelReference(UTankBarrel* barrelToSet);
-
-    UFUNCTION(BlueprintCallable, Category = "Setup")
-    void SetTurretReference(UTurret* turretToSet);
-
+    virtual void BeginPlay() override;
+ 
 protected:
     UPROPERTY(BlueprintReadOnly)
     UTankAimingComponent* tankAimingComponent = nullptr;
@@ -48,7 +43,7 @@ private:
     double lastFireTime = 0;
     // EditDefaultsOnly - can only change value inside Blueprint fo all instances
     // EditAnywhere - can chenge value for a particular instance
-    UPROPERTY(EditDefaultsOnly, Category = Firing)
+    UPROPERTY(EditDefaultsOnly, Category = "Firing")
     float launchSpeed = 4000.0f; // 1000 cm per second.
     
     UPROPERTY(EditDefaultsOnly, Category = "Setup")
@@ -66,8 +61,4 @@ private:
     
 	// Sets default values for this pawn's properties
 	ATank();
-
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 };

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Taner Selim
 
 #pragma once
 
@@ -28,20 +28,23 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
     void DoAim(FVector targetLocation, float launchSpeed);
-    void SetBarrelReference(UTankBarrel* barrelToSet);
-    void SetTurretReference(UTurret* turretToSet);
+    
+    UFUNCTION(BlueprintCallable, Category = "Setup")
+    void Initialize(UTurret* turretToSet, UTankBarrel* barrelToSet);
 
 protected:
     // Firing state
     UPROPERTY(BluePrintReadOnly, Category = "State")
     EFiringStatus firingStatus = EFiringStatus::Reloading;
 
-private:
     // get a reference to the barrel of the tank
+    UPROPERTY(BluePrintReadOnly, Category = "Setup")
     UTankBarrel* tankBarrel = nullptr;
     // get a reference to the turret
+    UPROPERTY(BluePrintReadOnly, Category = "Setup")
     UTurret* tankTurret = nullptr;
 
+private:
     void MoveBarrelTowards(FVector aimDirection);
     float NormalizeAngle(float unrealAngle); // returns an angle from 0 - 360 degrees given an unreal engine angle
 	
