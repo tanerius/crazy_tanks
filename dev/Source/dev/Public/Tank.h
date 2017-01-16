@@ -8,7 +8,6 @@
 
 class UTankBarrel; // Do a class forward declaration
 class UTankAimingComponent;
-class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -30,9 +29,6 @@ protected:
     UPROPERTY(BlueprintReadOnly)
     UTankAimingComponent* tankAimingComponent = nullptr;
 
-    UPROPERTY(BlueprintReadOnly)
-    UTankMovementComponent* tankMovementComponent = nullptr;
-
 private:
     /////////////////////////////////
     // PROPERTIES
@@ -41,8 +37,8 @@ private:
     UTankBarrel* barrel = nullptr;
     
     double lastFireTime = 0;
-    // EditDefaultsOnly - can only change value inside Blueprint fo all instances
-    // EditAnywhere - can chenge value for a particular instance
+    
+    // TODO: Remove once firing is moved to aiming component
     UPROPERTY(EditDefaultsOnly, Category = "Firing")
     float launchSpeed = 4000.0f; // 1000 cm per second.
     
