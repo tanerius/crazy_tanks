@@ -18,6 +18,7 @@ enum class EFiringStatus : uint8
 // Do a class forward declaration
 class UTankBarrel; 
 class UTurret;
+class AProjectile;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEV_API UTankAimingComponent : public UActorComponent
@@ -32,6 +33,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Setup")
     void Initialize(UTurret* turretToSet, UTankBarrel* barrelToSet);
 
+    UFUNCTION(BlueprintCallable, Category = "Setup")
+    void Fire();
+
 protected:
     // Firing state
     UPROPERTY(BluePrintReadOnly, Category = "State")
@@ -44,9 +48,16 @@ protected:
     UPROPERTY(BluePrintReadOnly, Category = "Setup")
     UTurret* tankTurret = nullptr;
 
+    UPROPERTY(EditDefaultsOnly, Category = "Firing")
+    float reloadTimeInSeconds = 3.0f; // sensible default
+
 private:
     float launchSpeed = 4000.0f;
     void MoveBarrelTowards(FVector aimDirection);
     float NormalizeAngle(float unrealAngle); // returns an angle from 0 - 360 degrees given an unreal engine angle
-	
+    double lastFireTime = 0;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Setup")
+    TSubclassOf<AProjectile> projectileBlueprint;
+    
 };

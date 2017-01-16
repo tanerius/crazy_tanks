@@ -1,9 +1,9 @@
 // Copyright Taner Selim
 
 #include "dev.h"
-#include "Tank.h"
 #include "TankBarrel.h"
 #include "Turret.h"
+#include "Projectile.h"
 #include "TankAimingComponent.h"
 
 
@@ -59,6 +59,24 @@ void UTankAimingComponent::DoAim(FVector targetLocation)
     
 }
 
+void UTankAimingComponent::Fire()
+{
+    if (!ensure(tankBarrel && projectileBlueprint)) { return; }
+    bool isReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
+    if (isReloaded) {
+        // Spawn a projectile
+        auto projectile = GetWorld()->SpawnActor<AProjectile>(
+            projectileBlueprint,
+            tankBarrel->GetSocketLocation(FName("Projectile")),
+            tankBarrel->GetSocketRotation(FName("Projectile"))
+            );
+
+        projectile->LaunchProjectile(launchSpeed);
+        lastFireTime = FPlatformTime::Seconds();
+    }
+
+    return;
+}
 
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {

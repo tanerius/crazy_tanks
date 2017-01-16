@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "dev.h"
-#include "Tank.h"
 #include "TankAimingComponent.h"
 #include "TankPlayerController.h"
 
@@ -20,18 +19,12 @@ void ATankPlayerController::AimTowardsCrosshair()
 void ATankPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    aimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+    aimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
     if (ensure(aimingComponent))
     {
         FoundAimingComponent(aimingComponent);
     }
 }
-
-ATank* ATankPlayerController::GetControlledTank() const
-{
-    return Cast<ATank>(GetPawn());
-}
-
 
 bool ATankPlayerController::GetLookDirection(FVector2D screenLocation, FVector& lookDirection) const
 {

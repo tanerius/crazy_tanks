@@ -4,7 +4,6 @@
 #include "TankAIController.generated.h"
 
 
-class ATank;
 class UTankAimingComponent;
 
 /**
