@@ -55,6 +55,8 @@ protected:
     // Returns the Tank that is being possessed by this player controller.
     UFUNCTION(BlueprintCallable, Category = "Setup")
     ATank* GetControlledTank() const;
+    
+    UTankAimingComponent* aimingComponent = nullptr;
 
     UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
     void FoundAimingComponent(UTankAimingComponent* aimingCompRef);

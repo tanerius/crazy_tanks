@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Taner Selim
 
 #include "dev.h"
 #include "Tank.h"
@@ -14,7 +14,6 @@ UTankAimingComponent::UTankAimingComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
 
-	// ...
 }
 
 void UTankAimingComponent::Initialize(UTurret* turretToSet, UTankBarrel* barrelToSet)
@@ -29,7 +28,7 @@ void UTankAimingComponent::Initialize(UTurret* turretToSet, UTankBarrel* barrelT
     tankTurret = turretToSet;
 }
 
-void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
+void UTankAimingComponent::DoAim(FVector targetLocation)
 {
     if (!ensure(tankBarrel && tankTurret)) { return; }
 
@@ -57,12 +56,6 @@ void UTankAimingComponent::DoAim(FVector targetLocation, float launchSpeed)
         auto aimDirection = outLaunchVelocity.GetSafeNormal();
         MoveBarrelTowards(aimDirection);
     }
-    //else
-    //{
-    //    auto timeNow = GetWorld()->GetTimeSeconds();
-    //    UE_LOG(LogTemp, Warning, TEXT("%f: No solution for aiming"), timeNow);
-    //}
-   
     
 }
 
@@ -109,12 +102,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
             tankTurret->RotateTurret(rawDifference);
         }
     }
-    
-    /*
-    auto ownerTank = Cast<ATank>(GetOwner());
-    if(ownerTank->isHuman)
-        UE_LOG(LogTemp, Warning, TEXT("current %f ; currentN:  %f ; to: %f ; toN : %f"), barrelRotator.Yaw, currentYaw, aimAsRotator.Yaw, targetYaw );
-    */
 }
 
 float UTankAimingComponent::NormalizeAngle(float unrealAngle)

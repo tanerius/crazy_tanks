@@ -27,7 +27,7 @@ class DEV_API UTankAimingComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
-    void DoAim(FVector targetLocation, float launchSpeed);
+    void DoAim(FVector targetLocation);
     
     UFUNCTION(BlueprintCallable, Category = "Setup")
     void Initialize(UTurret* turretToSet, UTankBarrel* barrelToSet);
@@ -45,6 +45,7 @@ protected:
     UTurret* tankTurret = nullptr;
 
 private:
+    float launchSpeed = 4000.0f;
     void MoveBarrelTowards(FVector aimDirection);
     float NormalizeAngle(float unrealAngle); // returns an angle from 0 - 360 degrees given an unreal engine angle
 	

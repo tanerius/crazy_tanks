@@ -34,17 +34,6 @@ void ATank::FireCannon()
     return;
 }
 
-void ATank::AimAt(FVector hitLocation)
-{
-    if (!ensure(tankAimingComponent))
-    {
-        return;
-    }
-
-    tankAimingComponent->DoAim(hitLocation, launchSpeed);
-    return;
-}
-
 void ATank::BeginPlay()
 {
     Super::BeginPlay(); // Needed for the BP BeginPlay event to be fired!

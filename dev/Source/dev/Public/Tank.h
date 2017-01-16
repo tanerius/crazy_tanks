@@ -17,7 +17,6 @@ class DEV_API ATank : public APawn
 
 public:
     bool isHuman = true;
-    void AimAt(FVector hitLocation);
 
     // Make the following method be callable from blueprint
     UFUNCTION(BlueprintCallable, Category = "Setup")

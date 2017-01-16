@@ -8,16 +8,11 @@
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-    if ( !ensure(GetControlledTank()) )
-        return;
 
     FVector hitLocation; // Out parameter
     if (GetSightRayHitLocation(hitLocation)) {
-       //  UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *hitLocation.ToString());
-        // Tell controlled tank to aim crosshair
-        GetControlledTank()->AimAt(hitLocation);
+        aimingComponent->DoAim(hitLocation);
     }
-
     
     return;
 }
@@ -25,14 +20,11 @@ void ATankPlayerController::AimTowardsCrosshair()
 void ATankPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    auto aimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+    aimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
     if (ensure(aimingComponent))
     {
         FoundAimingComponent(aimingComponent);
     }
-
-    ATank* possesedTank = GetControlledTank();
-    ensure(possesedTank);
 }
 
 ATank* ATankPlayerController::GetControlledTank() const
@@ -78,13 +70,11 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& hl) const
     int32 viewportSizeX, viewportSizeY;
     GetViewportSize(viewportSizeX, viewportSizeY);
     FVector2D screenLocation = FVector2D( viewportSizeX * crosshairXLocation, viewportSizeY * crosshairYLocation );
-    // UE_LOG(LogTemp, Warning, TEXT("CrossHair screen location: %s"), *screenLocation.ToString());
 
     // De-project screen position of the hrosshair to a world direction
     FVector lookDirection;
     if ( GetLookDirection(screenLocation, lookDirection) )
     {
-        // UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *lookDirection.ToString());
         // Line trace along that look direction and see what we hit (up to max range)
         GetLookVectorHitLocation(lookDirection, hl);
     }
@@ -99,6 +89,5 @@ void ATankPlayerController::Tick( float DeltaSeconds )
     Super::Tick( DeltaSeconds );
     AimTowardsCrosshair();
     // Check to see all is working
-    //UE_LOG(LogTemp, Warning, TEXT("Ticking from ATankPlayerController"));
     return;
 }

@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "AIController.h"
@@ -7,14 +5,18 @@
 
 
 class ATank;
+class UTankAimingComponent;
 
 /**
- * 
+ * AI Tank controller
  */
 UCLASS()
 class DEV_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
+    
+protected:
+    UTankAimingComponent* aimingComponent = nullptr;
 
 private:
     // How close can an AI tank get to a player (assuming in centimetres)
