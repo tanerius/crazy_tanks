@@ -56,8 +56,13 @@ private:
     void MoveBarrelTowards(FVector aimDirection);
     float NormalizeAngle(float unrealAngle); // returns an angle from 0 - 360 degrees given an unreal engine angle
     double lastFireTime = 0;
+    bool isBarrelMoving = false;
 
     UPROPERTY(EditDefaultsOnly, Category = "Setup")
     TSubclassOf<AProjectile> projectileBlueprint;
+
+    virtual void BeginPlay() override;
+    bool IsBarrelMoving();
+    virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
     
 };
