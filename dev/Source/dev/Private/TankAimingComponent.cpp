@@ -33,7 +33,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
     {
         firingStatus = EFiringStatus::Locked;
     }
-    //UE_LOG(LogTemp, Warning, TEXT("UTankAimingComponent::TickComponent(...)  NO SUPER OK..."));
+    // UE_LOG(LogTemp, Warning, TEXT("UTankAimingComponent::TickComponent(...)  NO SUPER OK..."));
 }
 
 void UTankAimingComponent::Initialize(UTurret* turretToSet, UTankBarrel* barrelToSet)

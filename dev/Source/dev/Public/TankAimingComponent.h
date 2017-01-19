@@ -52,7 +52,8 @@ protected:
     float reloadTimeInSeconds = 3.0f; // sensible default
 
 private:
-    float launchSpeed = 4000.0f;
+    UPROPERTY(EditDefaultsOnly, Category = "Firing")
+    float launchSpeed = 10000.0f;
     void MoveBarrelTowards(FVector aimDirection);
     float NormalizeAngle(float unrealAngle); // returns an angle from 0 - 360 degrees given an unreal engine angle
     double lastFireTime = 0;
