@@ -14,7 +14,20 @@ class DEV_API UTankTrack : public UStaticMeshComponent
 	GENERATED_BODY()
 private:
     UTankTrack();
-    virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+    void ApplySidewaysForce();
+    virtual void BeginPlay() override;
+    void DriveTrack();
+
+    float currentThrottle = 0.0f;
+
+    UFUNCTION()
+    void OnHit(
+        UPrimitiveComponent* hitComponent,
+        AActor* otherActor,
+        UPrimitiveComponent* otherHitComponent,
+        FVector normalImpulse,
+        const FHitResult& hit
+    );
 public:
     UFUNCTION(BlueprintCallable, Category = "Input")
     void SetThrottle(float throttle);
