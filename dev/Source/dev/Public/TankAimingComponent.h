@@ -12,7 +12,8 @@ enum class EFiringStatus : uint8
 {
     Reloading,
     Aiming,
-    Locked
+    Locked,
+    Ammo
 };
 
 // Do a class forward declaration
@@ -33,10 +34,14 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Setup")
     void Initialize(UTurret* turretToSet, UTankBarrel* barrelToSet);
 
-    UFUNCTION(BlueprintCallable, Category = "Setup")
+    UFUNCTION(BlueprintCallable, Category = "Firing")
     void Fire();
 
+
     EFiringStatus GetFiringState() const;
+
+    UFUNCTION(BlueprintCallable, Category = "Firing")
+    int32 GetRoundsLeft() const;
 
 protected:
     // Firing state
@@ -52,6 +57,8 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "Firing")
     float reloadTimeInSeconds = 3.0f; // sensible default
+
+    int32 roundsLeft = 5;
 
 private:
     UPROPERTY(EditDefaultsOnly, Category = "Firing")
