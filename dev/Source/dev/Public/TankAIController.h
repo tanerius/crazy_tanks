@@ -17,9 +17,11 @@ class DEV_API ATankAIController : public AAIController
 protected:
     UTankAimingComponent* aimingComponent = nullptr;
 
-private:
     // How close can an AI tank get to a player (assuming in centimetres)
-    float acceptanceRadius = 500.0f;
+    UPROPERTY(EditDefaultsOnly, Category = "Setup")
+    float acceptanceRadius = 8000.0f;
+
+private:
 
     void BeginPlay() override;
 	
