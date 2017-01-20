@@ -58,6 +58,7 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Firing")
     float reloadTimeInSeconds = 3.0f; // sensible default
 
+    UPROPERTY(EditDefaultsOnly, Category = "Firing")
     int32 roundsLeft = 5;
 
 private:
