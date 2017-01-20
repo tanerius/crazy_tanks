@@ -27,6 +27,11 @@ AProjectile::AProjectile()
     impactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
     impactBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
     impactBlast->bAutoActivate = false;
+
+    explosionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion Force"));
+    //attach it to the collision mesh or it will spawn at 0,0,0 and wont travel when fired
+    explosionForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
 }
 
 
@@ -55,4 +60,5 @@ void AProjectile::OnHit(
 {
     launchBlast->Deactivate();
     impactBlast->Activate();
+    explosionForce->FireImpulse();
 }
