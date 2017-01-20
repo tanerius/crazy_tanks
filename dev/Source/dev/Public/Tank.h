@@ -29,4 +29,8 @@ public:
         class AController * EventInstigator,
         AActor * DamageCauser
     ) override;
+
+    // returns current health from 0.f - 1.f (percentage of max health)
+    UFUNCTION(BlueprintPure, Category = "Health")
+    float GetHealthPercent() const;
 };
