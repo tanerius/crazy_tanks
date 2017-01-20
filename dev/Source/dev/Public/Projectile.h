@@ -41,4 +41,10 @@ private:
         UPrimitiveComponent* otherHitComponent,
         FVector normalImpulse,
         const FHitResult& hit);
+
+    UPROPERTY(EditDefaultsOnly, Category = "Setup")
+    float DestroyDelay = 5.0f;
+
+    void OnTimerExpire();
+
 };

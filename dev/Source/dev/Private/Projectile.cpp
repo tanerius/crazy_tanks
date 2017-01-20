@@ -61,4 +61,17 @@ void AProjectile::OnHit(
     launchBlast->Deactivate();
     impactBlast->Activate();
     explosionForce->FireImpulse();
+
+    SetRootComponent(impactBlast);
+    collisionMesh->DestroyComponent();
+
+    // Destroy projectiles
+    FTimerHandle timerHnd;
+    GetWorld()->GetTimerManager().SetTimer(timerHnd, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
+}
+
+
+void AProjectile::OnTimerExpire()
+{
+    Destroy();
 }
