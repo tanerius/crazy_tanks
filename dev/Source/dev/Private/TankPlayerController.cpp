@@ -3,6 +3,7 @@
 #include "dev.h"
 #include "TankAimingComponent.h"
 #include "TankPlayerController.h"
+#include "Tank.h"
 
 
 void ATankPlayerController::AimTowardsCrosshair()
@@ -72,6 +73,23 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& hl) const
         return GetLookVectorHitLocation(lookDirection, hl);
     }
     return false;
+}
+
+void ATankPlayerController::OnPossessedTankDeath()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Receided OnDeath by HUMAN."));
+}
+
+void ATankPlayerController::SetPawn(APawn* inPawn)
+{
+    Super::SetPawn(inPawn);
+    if (inPawn)
+    {
+        auto possessedTank = Cast<ATank>(inPawn);
+        if (!ensure(possessedTank)) { return; }
+        // Now subscribe our local method to the tanks death method
+        possessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossessedTankDeath);
+    }
 }
 
 //Tick

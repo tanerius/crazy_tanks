@@ -45,6 +45,12 @@ private:
     bool GetLookVectorHitLocation(FVector lookDirection, FVector& hitLocation) const;
     bool GetSightRayHitLocation(FVector& hl) const;
 
+    UFUNCTION()
+    void OnPossessedTankDeath();
+
+    // This method gets called by the engine when the pawn is possessed by the AI!
+    virtual void SetPawn(APawn* inPawn) override;
+
     // override the tick method so we can use it for aiming towards the crosshair
     // virtual - allows other children to override
     virtual void Tick( float DeltaSeconds ) override;
