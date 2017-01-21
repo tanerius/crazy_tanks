@@ -78,6 +78,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& hl) const
 void ATankPlayerController::OnPossessedTankDeath()
 {
     UE_LOG(LogTemp, Warning, TEXT("Receided OnDeath by HUMAN."));
+    StartSpectatingOnly();
 }
 
 void ATankPlayerController::SetPawn(APawn* inPawn)

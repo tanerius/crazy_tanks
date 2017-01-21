@@ -18,7 +18,9 @@ private:
     int32 startingHealth = 100;
 
     UPROPERTY(VisibleAnywhere, Category = "Health")
-    int32 currentHealth = startingHealth;
+    int32 currentHealth;
+
+    virtual void BeginPlay() override;
     
 public:
     ATank();
