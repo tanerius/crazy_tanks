@@ -40,7 +40,7 @@ void ATankAIController::Tick(float DeltaSeconds)
     if (!playerTank) { return; }
     
     // Move towards player
-    EPathFollowingResult::Type x = MoveToActor(playerTank, acceptanceRadius);
+    MoveToActor(Cast<AActor>(playerTank), acceptanceRadius);
 
     aimingComponent->DoAim(playerTank->GetActorLocation());
 
