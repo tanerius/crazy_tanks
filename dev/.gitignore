@@ -68,3 +68,5 @@ DerivedDataCache/*
 **/xcuserdata
 
 **/Content/StarterContent
+
+dev.xcworkspace/*
