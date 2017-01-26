@@ -22,10 +22,12 @@ public:
 
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	
+
+    UFUNCTION(BlueprintCallable, Category = "Setup")
+    void Initialize(UWheel* leftToSet, UWheel* rightToSet);
+
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-		
 	
 };

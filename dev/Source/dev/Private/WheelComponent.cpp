@@ -24,6 +24,13 @@ void UWheelComponent::BeginPlay()
 	
 }
 
+void UWheelComponent::Initialize(UWheel* leftToSet, UWheel* rightToSet)
+{
+    if (!ensure(leftToSet && rightToSet)) { return; }
+    leftWheel = leftToSet;
+    rightWheel = rightToSet;
+}
+
 
 // Called every frame
 void UWheelComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
