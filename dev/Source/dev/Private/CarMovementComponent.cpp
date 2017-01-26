@@ -17,11 +17,15 @@ void UCarMovementComponent::IntendMoveForward(float moveThrow)
     if (!ensure(leftWheel && rightWheel)) { return; }
     leftWheel->RotateWheel(moveThrow);
     rightWheel->RotateWheel(moveThrow);
+    
     return;
 }
 
 void UCarMovementComponent::IntendTurn(float moveThrow)
 {
+    if (!ensure(leftWheel && rightWheel)) { return; }
+    leftWheel->YawWheel(moveThrow);
+    rightWheel->YawWheel(moveThrow);
     return;
 }
 
@@ -30,6 +34,10 @@ void UCarMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool 
     // No need to call super. Need to completely replace funcitonality of parent
     // Note: MoveVelocity is NOT a unit vector, but we're only interested in the direction
     
+    
+    UE_LOG(LogTemp, Warning, TEXT("AI move car.. "));
+    
+    /*
     auto carForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
     auto aiForwardIntention = MoveVelocity.GetSafeNormal(); // where AI pathfinding would like to orient and move the car
 
@@ -40,5 +48,5 @@ void UCarMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool 
 
     IntendMoveForward(forwardThrow);
     IntendTurn(rightThrow);
-  
+     */
 }

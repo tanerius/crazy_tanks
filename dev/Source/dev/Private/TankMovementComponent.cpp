@@ -26,6 +26,8 @@ void UTankMovementComponent::IntendTurnLeftRight(float moveThrow)
 
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
+    auto timeNow = GetWorld()->GetTimeSeconds();
+    UE_LOG(LogTemp, Warning, TEXT("%f: AI move tank.. "), timeNow);
     // No need to call super. Need to completely replace funcitonality of parent
     // Note: MoveVelocity is NOT a unit vector, but we're only interested in the direction
     auto tankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();

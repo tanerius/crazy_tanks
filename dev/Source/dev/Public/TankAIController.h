@@ -19,7 +19,7 @@ protected:
 
     // How close can an AI tank get to a player (assuming in centimetres)
     UPROPERTY(EditDefaultsOnly, Category = "Setup")
-    float acceptanceRadius = 8000.0f;
+    float acceptanceRadius = 3000.0f;
 
 
 private:

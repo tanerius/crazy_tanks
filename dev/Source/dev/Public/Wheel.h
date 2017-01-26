@@ -20,6 +20,16 @@ private:
     float maxSpeed = 100.0f; // degrees per second
     UPROPERTY(EditDefaultsOnly, Category = "Setup")
     float maxReverseSpeed = 20.0f; // degrees per second
+    
+    UPROPERTY(EditAnywhere, Category = "Setup")
+    float maxDegreesPerSecond = 20.0f; // for turning wheels
+    
+    UPROPERTY(EditAnywhere, Category = "Setup")
+    float maxYawDegrees = 40.0f; // Sensible property
+    
+    UPROPERTY(EditAnywhere, Category = "Setup")
+    float minYawDegrees = -40.0f; // Sensible property
+    
 public:
     void RotateWheel(float relativeSpeed);
     void YawWheel(float relativeSpeed);
